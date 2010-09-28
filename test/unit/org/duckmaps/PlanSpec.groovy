@@ -16,13 +16,10 @@
  */
 package org.duckmaps
 
-import grails.test.*
+import grails.plugin.spock.*
 
 /**
  * @author Jan Ehrhardt
  */
-class MapTests extends GrailsUnitTestCase {
-  
-  void testSomething() {
-  }
+class PlanSpec extends UnitSpec {
 }

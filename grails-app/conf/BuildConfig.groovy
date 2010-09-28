@@ -42,6 +42,15 @@ grails.project.dependency.resolution = {
   dependencies {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
     
-    // runtime 'mysql:mysql-connector-java:5.1.5'
+    // These dependencies are required as a workaround for STS.
+    compile 'org.apache.ant:ant-junit:1.7.1'
+    compile 'org.spockframework:spock-core:0.4-groovy-1.7'
+    test('net.sourceforge.htmlunit:htmlunit:2.7') {
+      excludes 'xalan' // IVY-1006 - use xalan 2.7.0 to avoid (see below)
+      excludes 'xml-apis' // GROOVY-3356
+    }
+    
+    test('xalan:xalan:2.7.0') { excludes 'xml-apis' // GROOVY-3356
+    }
   }
 }
