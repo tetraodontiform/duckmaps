@@ -28,5 +28,7 @@ class Point {
   
   int y
   
+  int z
+  
   static belongsTo = Element
 }
