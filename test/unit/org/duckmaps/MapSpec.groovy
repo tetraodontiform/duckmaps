@@ -25,4 +25,29 @@ import grails.plugin.spock.*
  * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
  */
 class MapSpec extends UnitSpec {
+  
+  def "create a map with an empty name"() {
+    
+    given: "a map with a blank name is mocked for constraints test"
+    def map = new Map(name: "", created: new Date(), modified: new Date())
+    mockForConstraintsTests Map, [map]
+    
+    when: "the map is validated"
+    map.validate()
+    
+    then: "the error for name is blank"
+    "blank" == map.errors["name"]
+  }
+  
+  def "create a map with null as name"() {
+    given:
+    mockForConstraintsTests Map
+    def map = new Map(created: new Date(), modified: new Date())
+    
+    when:
+    map.validate()
+    
+    then:
+    "nullable" == map.errors["name"]
+  }
 }

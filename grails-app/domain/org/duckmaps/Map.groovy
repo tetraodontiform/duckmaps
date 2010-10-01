@@ -31,4 +31,10 @@ class Map {
   Date modified
   
   static hasMany = [plans: Plan]
+  
+  static constraints = {
+    name blank: false, maxSize: 255
+    created max: new Date()
+    modified max: new Date()
+  }
 }
