@@ -29,7 +29,7 @@ class MapSpec extends UnitSpec {
   def "create a map with an empty name"() {
     
     given: "a map with a blank name is mocked for constraints test"
-    def map = new Map(name: "", created: new Date(), modified: new Date())
+    def map = new Map(name: "")
     mockForConstraintsTests Map, [map]
     
     when: "the map is validated"
@@ -40,14 +40,58 @@ class MapSpec extends UnitSpec {
   }
   
   def "create a map with null as name"() {
+    
     given:
     mockForConstraintsTests Map
-    def map = new Map(created: new Date(), modified: new Date())
+    def map = new Map()
     
     when:
     map.validate()
     
     then:
     "nullable" == map.errors["name"]
+  }
+  
+  def "create a map, which name has 1 characters"() {
+    
+    given:
+    mockForConstraintsTests Map
+    def map = new Map(name: "a")
+    
+    when:
+    map.validate()
+    
+    then:
+    null == map.errors["name"]
+  }
+  
+  def "create a map, which name has 256 characters"() {
+    
+    given:
+    mockForConstraintsTests Map
+    def name = ""
+    (1..256).each { name += "a" }
+    def map = new Map(name: name)
+    
+    when:
+    map.validate()
+    
+    then:
+    "maxSize" == map.errors["name"]
+  }
+  
+  def "create a map, which name has 255 characters"() {
+    
+    given:
+    mockForConstraintsTests Map
+    def name = ""
+    (1..255).each { name += "a" }
+    def map = new Map(name: name)
+    
+    when:
+    map.validate()
+    
+    then:
+    null == map.errors["name"]
   }
 }
