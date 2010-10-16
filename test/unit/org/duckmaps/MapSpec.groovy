@@ -26,7 +26,7 @@ import grails.plugin.spock.*
  */
 class MapSpec extends UnitSpec {
   
-  def "create a map with an empty name"() {
+  def "validate a map with an empty name"() {
     
     given: "a map with a blank name is mocked for constraints test"
     def map = new Map(name: "")
@@ -39,7 +39,7 @@ class MapSpec extends UnitSpec {
     "blank" == map.errors["name"]
   }
   
-  def "create a map with null as name"() {
+  def "validate a map with null as name"() {
     
     given:
     mockForConstraintsTests Map
@@ -52,7 +52,7 @@ class MapSpec extends UnitSpec {
     "nullable" == map.errors["name"]
   }
   
-  def "create a map, which name has 1 characters"() {
+  def "validate a map, whose name has 1 characters"() {
     
     given:
     mockForConstraintsTests Map
@@ -65,7 +65,7 @@ class MapSpec extends UnitSpec {
     null == map.errors["name"]
   }
   
-  def "create a map, which name has 256 characters"() {
+  def "validate a map, whose name has 256 characters"() {
     
     given:
     mockForConstraintsTests Map
@@ -80,7 +80,7 @@ class MapSpec extends UnitSpec {
     "maxSize" == map.errors["name"]
   }
   
-  def "create a map, which name has 255 characters"() {
+  def "validate a map, whose name has 255 characters"() {
     
     given:
     mockForConstraintsTests Map
@@ -93,5 +93,18 @@ class MapSpec extends UnitSpec {
     
     then:
     null == map.errors["name"]
+  }
+  
+  def "validate a map with null as created date"() {
+    
+    given:
+    mockForConstraintsTests Map
+    def map = new Map()
+    
+    when:
+    map.validate()
+    
+    then:
+    "nullable" == map.errors["created"]
   }
 }
