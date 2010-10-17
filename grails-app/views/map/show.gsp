@@ -10,11 +10,14 @@
       <g:set var="jqueryPath" value="${resource(dir:'js',file:'jquery-1.4.2.js')}" />
     </g:else>
     <title>${fieldValue(bean: mapInstance, field: "name")}</title>
+    <g:javascript data-path="${resource(dir:'js')}" src="svg.js" />
     <g:javascript src="require.js" />
     <g:javascript>
-    require(["${jqueryPath}"],function(){
-      $(function(){
-      // do the page stuff
+    require(["${jqueryPath}", "${resource(dir:'js', file:'duckmaps.js')}"],function() {
+      $(function() {
+        window.addEventListener('SVGLoad', function() {
+          var duckMap = new DuckMap("planView", 300, 300);
+        }, false);
       });
     });
     </g:javascript>
@@ -52,11 +55,7 @@
     <td valign="top" class="name"><g:message code="map.plans.label" default="Plans" /></td>
                             
     <td valign="top" style="text-align: left;" class="value">
-    <ul>
-    <g:each in="${mapInstance.plans}" var="p">
-    <li><g:link controller="plan" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-    </g:each>
-    </ul>
+    <div id="planView"></div>
     </td>
                             
     </tr>
