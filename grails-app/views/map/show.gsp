@@ -3,17 +3,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="layout" content="main" />
     <g:set var="entityName" value="${message(code: 'map.label', default: 'Map')}" />
-    <g:if env="production">
-      <g:set var="jqueryPath" value="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" />
-    </g:if>
-    <g:else>
-      <g:set var="jqueryPath" value="${resource(dir:'js',file:'jquery-1.4.2.js')}" />
-    </g:else>
     <title>${fieldValue(bean: mapInstance, field: "name")}</title>
     <g:javascript data-path="${resource(dir:'js')}" src="svg.js" />
+    <g:javascript library="jquery" plugin="jquery" />
     <g:javascript src="require.js" />
     <g:javascript>
-    require(["${jqueryPath}", "${resource(dir:'js', file:'duckmaps.js')}"],function() {
+    require(["${resource(dir:'js', file:'duckmaps.js')}"],function() {
       $(function() {
         window.addEventListener('SVGLoad', function() {
           var duckMap = new DuckMap("planView", 300, 300);
