@@ -6,15 +6,13 @@
     <title>${fieldValue(bean: mapInstance, field: "name")}</title>
     <g:javascript data-path="${resource(dir:'js')}" src="svg.js" />
     <g:javascript library="jquery" plugin="jquery" />
-    <g:javascript src="require.js" />
+    <g:javascript scr="duckmaps.js" />
     <g:javascript>
-    require(["${resource(dir:'js', file:'duckmaps.js')}"],function() {
       $(function() {
         window.addEventListener('SVGLoad', function() {
-          var duckMap = new DuckMap("planView", 300, 300);
+
         }, false);
       });
-    });
     </g:javascript>
   </head>
   <body>

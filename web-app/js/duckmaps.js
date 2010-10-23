@@ -19,29 +19,4 @@
  */
 (function() {
 
-  /**
-   * A Canvas is used to draw on it. This Canvas is an abstraction layer
-   * on top of SVGweb library, that provides some methods, that make drawing
-   * simpler.
-   */
-  var Canvas = function() {
-    var svgContainer = document.getElementById(arguments[0]);
-
-    var svgRoot = document.createElementNS(svgns, "svg");
-    svgRoot.onsvgload = function() {svgRoot = this;};
-    svgRoot.setAttribute("width", arguments[1]);
-    svgRoot.setAttribute("height", arguments[2]);
-
-    svgweb.appendChild(svgRoot, svgContainer);
-  };
-
-  /**
-   * The central type for instanciating a DuckMap in the browser.
-   */
-  var DuckMap = function() {
-    var canvas = new Canvas(arguments[0], arguments[1], arguments[2]);
-  };
-
-  window["DuckMap"] = DuckMap;
-
 })();
