@@ -19,7 +19,7 @@
  */
 package org.duckmaps
 
-import grails.plugin.spock.*
+import grails.plugin.spock.UnitSpec
 
 /**
  * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
