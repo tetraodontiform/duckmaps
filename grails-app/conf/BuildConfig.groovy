@@ -46,11 +46,29 @@ grails.project.dependency.resolution = {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
     
     // These dependencies are required as a workaround for STS.
+    // Currently STS does not recognize dependencies declared by plugins.
     compile 'org.apache.ant:ant-junit:1.7.1'
     compile 'org.spockframework:spock-core:0.4-groovy-1.7'
     test('net.sourceforge.htmlunit:htmlunit:2.7') {
       excludes 'xalan' // IVY-1006 - use xalan 2.7.0 to avoid (see below)
       excludes 'xml-apis' // GROOVY-3356
+    }
+    runtime('org.springframework.security:org.springframework.security.core:3.0.3.RELEASE') {
+      excludes 'com.springsource.org.aopalliance',
+          'com.springsource.org.apache.commons.logging',
+          'org.springframework.beans',
+          'org.springframework.context',
+          'org.springframework.core'
+    }
+    runtime('org.springframework.security:org.springframework.security.web:3.0.3.RELEASE') {
+      excludes 'com.springsource.javax.servlet',
+          'com.springsource.org.aopalliance',
+          'com.springsource.org.apache.commons.logging',
+          'org.springframework.aop',
+          'org.springframework.beans',
+          'org.springframework.context',
+          'org.springframework.core',
+          'org.springframework.web'
     }
     
     test('xalan:xalan:2.7.0') { excludes 'xml-apis' // GROOVY-3356
