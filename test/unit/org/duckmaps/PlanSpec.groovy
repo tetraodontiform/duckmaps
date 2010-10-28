@@ -32,7 +32,7 @@ class PlanSpec extends UnitSpec {
     mockForConstraintsTests Plan, [plan]
     
     expect:
-    false == plan.validate()
+    false == plan.validate(["name"])
     "nullable" == plan.errors["name"]
   }
   
@@ -65,5 +65,43 @@ class PlanSpec extends UnitSpec {
     expect:
     false == plan.validate(["name"])
     "maxSize" == plan.errors["name"]
+  }
+  
+  def "description can be blank"() {
+    given:
+    def plan = new Plan(description: "")
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["description"])
+  }
+  
+  def "content can be blank"() {
+    given:
+    def plan = new Plan(content: "")
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["content"])
+  }
+  
+  def "dateCreated may not be null"() {
+    given:
+    def plan = new Plan()
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["dateCreated"])
+    "nullable" == plan.errors["dateCreated"]
+  }
+  
+  def "lastUpdated may not be null"() {
+    given:
+    def plan = new Plan()
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["lastUpdated"])
+    "nullable" == plan.errors["lastUpdated"]
   }
 }

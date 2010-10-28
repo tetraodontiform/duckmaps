@@ -26,6 +26,10 @@ class Plan extends Tagged {
   
   String name
   
+  String description
+  
+  String content
+  
   Date dateCreated
   
   Date lastUpdated
@@ -36,5 +40,7 @@ class Plan extends Tagged {
   
   static constraints = {
     name blank: false, maxSize: 255
+    dateCreated nullable: false
+    lastUpdated nullable: false
   }
 }
