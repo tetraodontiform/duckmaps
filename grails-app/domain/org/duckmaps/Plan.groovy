@@ -22,15 +22,25 @@ package org.duckmaps
 /**
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
-class Plan {
+class Plan extends Tagged {
   
   String name
   
   Date created
   
-  Date modified
+  Date updated
   
-  static belongsTo = Map
+  static belongsTo = [parent: Plan]
   
-  static hasMany = [elements: Element]
+  static hasMany = [children: Plan, entries: Entry]
+  
+  static constraints = {
+    name blank: false, maxSize: 255
+    created max: new Date()
+    updated max: new Date(), validator: { value, plan ->
+      if(value < plan.created) {
+        ["early"]
+      }
+    }
+  }
 }

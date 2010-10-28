@@ -25,4 +25,142 @@ import grails.plugin.spock.*
  * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
  */
 class PlanSpec extends UnitSpec {
+  
+  def "name may not be null"() {
+    given:
+    def plan = new Plan()
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate()
+    "nullable" == plan.errors["name"]
+  }
+  
+  def "name may not be blank"() {
+    given:
+    def plan = new Plan(name: "")
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["name"])
+    "blank" == plan.errors["name"]
+  }
+  
+  def "name can have 255 characters"() {
+    given:
+    def plan = new Plan(name: "")
+    (1..255).each { plan.name += "a" }
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["name"])
+  }
+  
+  def "name may not have 256 characters"() {
+    given:
+    def plan = new Plan(name: "")
+    (1..256).each { plan.name += "a" }
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["name"])
+    "maxSize" == plan.errors["name"]
+  }
+  
+  def "created may not be null"() {
+    given:
+    def plan = new Plan()
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["created"])
+    "nullable" == plan.errors["created"]
+  }
+  
+  def "created may not be in the future"() {
+    given:
+    def plan = new Plan(created: new Date() + 1)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["created"])
+    "max" == plan.errors["created"]
+  }
+  
+  def "created can be now"() {
+    given:
+    def plan = new Plan(created: new Date())
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["created"])
+  }
+  
+  def "created can be in the past"() {
+    given:
+    def plan = new Plan(created: new Date() - 1)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["created"])
+  }
+  
+  def "updated may not be null"() {
+    given:
+    def plan = new Plan()
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["updated"])
+    "nullable" == plan.errors["updated"]
+  }
+  
+  def "updated may not be in the future"() {
+    given:
+    def plan = new Plan(updated: new Date() + 1)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["updated"])
+    "max" == plan.errors["updated"]
+  }
+  
+  def "updated can be now"() {
+    given:
+    def plan = new Plan(updated: new Date())
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["updated"])
+  }
+  
+  def "updated can be in the past"() {
+    given:
+    def plan = new Plan(updated: new Date() - 1)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["updated"])
+  }
+  
+  def "updated may not before created"() {
+    given:
+    def plan = new Plan(created: new Date(), updated: new Date() - 1)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    false == plan.validate(["updated", "created"])
+    1 == plan.errors.errorCount
+    "early" == plan.errors["updated"]
+  }
+  
+  def "updated may be at the same time as created"() {
+    given:
+    def now = new Date()
+    def plan = new Plan(created: now, updated: now)
+    mockForConstraintsTests Plan, [plan]
+    
+    expect:
+    true == plan.validate(["updated", "created"])
+  }
 }
