@@ -26,9 +26,9 @@ class Plan extends Tagged {
   
   String name
   
-  Date created
+  Date dateCreated
   
-  Date updated
+  Date lastUpdated
   
   static belongsTo = [parent: Plan]
   
@@ -36,11 +36,5 @@ class Plan extends Tagged {
   
   static constraints = {
     name blank: false, maxSize: 255
-    created max: new Date()
-    updated max: new Date(), validator: { value, plan ->
-      if(value < plan.created) {
-        ["early"]
-      }
-    }
   }
 }
