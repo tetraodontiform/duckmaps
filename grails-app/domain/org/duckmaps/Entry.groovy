@@ -20,15 +20,26 @@
 package org.duckmaps
 
 /**
- * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
+ * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
 class Entry extends Tagged {
-
+  
+  String name
+  
   String refId
-
-  Date created
-
-  Date updated
-
+  
+  String description
+  
+  Date dateCreated
+  
+  Date lastUpdated
+  
   static belongsTo = [plan: Plan]
+  
+  static constraints = {
+    name blank: false, maxSize: 255
+    refId blank: false, maxSize: 255
+    dateCreated nullable: false
+    lastUpdated nullable: false
+  }
 }
