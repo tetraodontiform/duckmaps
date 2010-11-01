@@ -25,4 +25,34 @@ import grails.plugin.spock.UnitSpec
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
 class PointPlanReferenceSpec extends UnitSpec {
+  
+  def "dateCreated may not be null"() {
+    given:
+    def entry = new PointPlanReference()
+    mockForConstraintsTests PointPlanReference, [entry]
+    
+    expect:
+    false == entry.validate(["dateCreated"])
+    "nullable" == entry.errors["dateCreated"]
+  }
+  
+  def "lastUpdated may not be null"() {
+    given:
+    def entry = new PointPlanReference()
+    mockForConstraintsTests PointPlanReference, [entry]
+    
+    expect:
+    false == entry.validate(["lastUpdated"])
+    "nullable" == entry.errors["lastUpdated"]
+  }
+  
+  def "plan may not be null"() {
+    given:
+    def entry = new PointPlanReference()
+    mockForConstraintsTests PointPlanReference, [entry]
+    
+    expect:
+    false == entry.validate(["plan"])
+    "nullable" == entry.errors["plan"]
+  }
 }

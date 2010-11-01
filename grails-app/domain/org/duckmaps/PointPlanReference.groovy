@@ -22,15 +22,20 @@ package org.duckmaps
 /**
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
-class PointPlanReference extends Tagged {
+class PointPlanReference extends PlanReference {
   
   int x
   
   int y
   
+  int z
+  
   Date dateCreated
   
   Date lastUpdated
   
-  static belongsTo = [plan: Plan]
+  static constraints = {
+    dateCreated nullable: false
+    lastUpdated nullable: false
+  }
 }
