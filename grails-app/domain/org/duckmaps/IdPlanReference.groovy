@@ -22,24 +22,16 @@ package org.duckmaps
 /**
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
-class Plan extends Tagged {
+class IdPlanReference extends PlanReference {
   
-  String name
-  
-  String description
-  
-  String content
+  String refId
   
   Date dateCreated
   
   Date lastUpdated
   
-  static belongsTo = [parent: Plan]
-  
-  static hasMany = [children: Plan, planReferences: PlanReference]
-  
   static constraints = {
-    name blank: false, maxSize: 255
+    refId blank: false, maxSize: 255
     dateCreated nullable: false
     lastUpdated nullable: false
   }

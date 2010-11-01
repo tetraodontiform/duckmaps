@@ -19,18 +19,20 @@
  */
 package org.duckmaps
 
+import grails.plugin.spock.UnitSpec
+
 /**
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
-class Point extends Tagged {
+class PlanReferenceSpec extends UnitSpec {
   
-  int x
-  
-  int y
-  
-  Date dateCreated
-  
-  Date lastUpdated
-  
-  static belongsTo = [plan: Plan]
+  def "plan may not be null"() {
+    given:
+    def planReference = new PlanReference()
+    mockForConstraintsTests PlanReference, [planReference]
+    
+    expect:
+    false == planReference.validate(["plan"])
+    "nullable" == planReference.errors["plan"]
+  }
 }

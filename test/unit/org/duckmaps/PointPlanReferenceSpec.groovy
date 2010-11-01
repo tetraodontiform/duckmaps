@@ -19,28 +19,10 @@
  */
 package org.duckmaps
 
+import grails.plugin.spock.UnitSpec
+
 /**
  * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
-class Plan extends Tagged {
-  
-  String name
-  
-  String description
-  
-  String content
-  
-  Date dateCreated
-  
-  Date lastUpdated
-  
-  static belongsTo = [parent: Plan]
-  
-  static hasMany = [children: Plan, planReferences: PlanReference]
-  
-  static constraints = {
-    name blank: false, maxSize: 255
-    dateCreated nullable: false
-    lastUpdated nullable: false
-  }
+class PointPlanReferenceSpec extends UnitSpec {
 }
