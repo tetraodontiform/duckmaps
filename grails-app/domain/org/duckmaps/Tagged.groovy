@@ -20,14 +20,11 @@
 package org.duckmaps
 
 /**
- * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
+ * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
 class Tagged {
-
+  
   static hasMany = [tags: Tag]
-
-  static mapping = {
-    tablePerHierarchy false
-  }
-
+  
+  static mapping = { tablePerHierarchy false }
 }

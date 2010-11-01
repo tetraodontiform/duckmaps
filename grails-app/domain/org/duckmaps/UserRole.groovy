@@ -22,7 +22,7 @@ package org.duckmaps
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 /**
- * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
+ * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
 class UserRole implements Serializable {
   

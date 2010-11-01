@@ -22,7 +22,7 @@ package org.duckmaps
 import grails.plugin.spock.UnitSpec
 
 /**
- * @author <a href="http://www.ducktools.org">Jan Ehrhardt</a>
+ * @author <a href="http://github.com/derjan1982">Jan Ehrhardt</a>
  */
 class PlanSpec extends UnitSpec {
   
